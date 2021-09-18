@@ -208,20 +208,20 @@ bool EnvironmentNAVXYTHETAC::InitializeEnv(
                         {   
                             // Used for generating the hash table and outputting the entries into a CSV file
                             // new_data_form << x << "," << y << "," << t1 << "," << t2 << "\n" << std::flush;
-                            // labeler_hash[x][y][t1][t2] = SubtreeOverlapNewRatio(0,0,DiscTheta2ContNew(t1),(double(x-3))/40.0,(double(y-3))/40.0,DiscTheta2ContNew(t2),0.025);
-                            // new_labels_form << labeler_hash[x][y][t1][t2] << "\n" << std::flush;
+                            labeler_hash[x][y][t1][t2] = SubtreeOverlapNewRatio(0,0,DiscTheta2ContNew(t1),(double(x-3))/40.0,(double(y-3))/40.0,DiscTheta2ContNew(t2),0.025);
+                            new_labels_form << labeler_hash[x][y][t1][t2] << "\n" << std::flush;
 
                             // Used for reading the hash table from a file
-                            std::string line;
-                            std::getline(is_labels,line);
-                            std::stringstream lineStream(line);
-                            std::string cell;
-                            int i = 0;
-                            while(std::getline(lineStream,cell, ','))
-                            {
-                                labeler_hash[x][y][t1][t2]  = std::stod(cell);
-                                i++;
-                            }
+                            // std::string line;
+                            // std::getline(is_labels,line);
+                            // std::stringstream lineStream(line);
+                            // std::string cell;
+                            // int i = 0;
+                            // while(std::getline(lineStream,cell, ','))
+                            // {
+                            //     labeler_hash[x][y][t1][t2]  = std::stod(cell);
+                            //     i++;
+                            // }
                         }
                     }
                 }
