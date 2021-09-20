@@ -147,7 +147,7 @@ void ReadinStartGoal(char* SGFilename, std::vector<double>& startgoal) {
 
 // ARA
 void planxythetalat(char* envCfgFilename, char* SGFilename,
-                    char* motPrimFilename, char* mode, char* SubtreeOverlapIdRadius, char* Cvalue, char* Depth) {
+                    char* motPrimFilename, char* mode, char* SubtreeOverlapIdRadius, char* Cvalue, char* Depth, char* ProduceHashTable) {
     std::string sg_filename(SGFilename);
     for(int i = sg_filename.length() - 1; i >=0; i--){
         if (sg_filename[i] == '/'){
@@ -167,6 +167,7 @@ void planxythetalat(char* envCfgFilename, char* SGFilename,
     env.mode = atoi(mode);
     env.c_value = atof(Cvalue);
     env.depth = atoi(Depth);
+	env.produce_hash_table = atoi(ProduceHashTable);
     env.SubtreeOverlapIdRadius = atof(SubtreeOverlapIdRadius);
     env.sg_filename = sg_filename;
     initializeEnv(env, perimeter, envCfgFilename, motPrimFilename);
@@ -209,4 +210,4 @@ void planxythetalat(char* envCfgFilename, char* SGFilename,
     delete planner;
 }
 
-int main(int argc, char* argv[]) { planxythetalat(argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], argv[7]); }
+int main(int argc, char* argv[]) { planxythetalat(argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], argv[7], argv[8]); }

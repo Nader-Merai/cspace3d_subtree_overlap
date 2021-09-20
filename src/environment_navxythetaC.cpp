@@ -125,8 +125,6 @@ EnvironmentNAVXYTHETAC::~EnvironmentNAVXYTHETAC() {
     }
 
     output.close();
-    new_data_form.close();
-    new_labels_form.close();
     expanded_heatmap_points.close();
 }
 
@@ -187,17 +185,11 @@ bool EnvironmentNAVXYTHETAC::InitializeEnv(
     // initializing hashtable
     if (mode == SUBTREE_HASH)
     {
-        // Used for generating the hash table
-        // std::string filename = "new_data.csv";
-        // new_data_form.open(filename);
-        // filename = "new_labels.csv";
-        // new_labels_form.open(filename);
-
-        std::string labels_filename = "new_labels.csv";
-        std::filebuf fb_l;
-        if (fb_l.open(labels_filename.c_str(),std::ios::in))
-        {
-            std::istream is_labels(&fb_l);
+		std::string hash_table_file_name = "Hash_Table_Values.txt";
+		if (produce_hash_table)
+		{
+			std::ofstream hash_stream;
+            hash_stream.open(hash_table_file_name);
             for(int x = 0; x < 7; x++)
             {
                 for(int y = 0; y < 7; y++)
@@ -206,28 +198,47 @@ bool EnvironmentNAVXYTHETAC::InitializeEnv(
                     {
                         for(int t2 = 0; t2 < 16; t2++)
                         {   
-                            // Used for generating the hash table and outputting the entries into a CSV file
-                            // new_data_form << x << "," << y << "," << t1 << "," << t2 << "\n" << std::flush;
+                            
                             labeler_hash[x][y][t1][t2] = SubtreeOverlapNewRatio(0,0,DiscTheta2ContNew(t1),(double(x-3))/40.0,(double(y-3))/40.0,DiscTheta2ContNew(t2),0.025);
-                            new_labels_form << labeler_hash[x][y][t1][t2] << "\n" << std::flush;
-
-                            // Used for reading the hash table from a file
-                            // std::string line;
-                            // std::getline(is_labels,line);
-                            // std::stringstream lineStream(line);
-                            // std::string cell;
-                            // int i = 0;
-                            // while(std::getline(lineStream,cell, ','))
-                            // {
-                            //     labeler_hash[x][y][t1][t2]  = std::stod(cell);
-                            //     i++;
-                            // }
+                            hash_stream << labeler_hash[x][y][t1][t2] << "\n" << std::flush;
                         }
                     }
                 }
             }
-        }
+			hash_stream.close();
+		}
+		else
+		{
+			std::filebuf fb_h;
+			if (fb_h.open(hash_table_file_name.c_str(),std::ios::in))
+			{
+				std::istream hash_stream(&fb_h);
+				for(int x = 0; x < 7; x++)
+				{
+					for(int y = 0; y < 7; y++)
+					{
+						for(int t1 = 0; t1 < 16; t1++)
+						{
+							for(int t2 = 0; t2 < 16; t2++)
+							{   
+								// Used for reading the hash table from a file
+								std::string line;
+								std::getline(hash_stream,line);
+								labeler_hash[x][y][t1][t2]  = std::stod(line);
+							}
+						}
+					}
+				}
+				fb_h.close();
+			}
+			else
+			{
+				std::cout << "Cannot Read Hash Table File - File Doesn't Exist. File Must Be Named: " << hash_table_file_name << std::endl << std::flush;
+				exit(0);
+			}
+		}	
     }
+	
     SBPL_PRINTF("size of env: %d by %d\n", EnvNAVXYTHETACCfg.EnvWidth_c,
                 EnvNAVXYTHETACCfg.EnvHeight_c);
 

@@ -362,8 +362,9 @@ public:
     int labeler_expansions;
     double labeler_hash[7][7][16][16];
 
-    // whether to produce data or simply run the classifier on the already existing data
     int depth;
+	
+	int produce_hash_table;
 
     // subtreeOverlap Radius
     double SubtreeOverlapIdRadius;
@@ -372,8 +373,6 @@ public:
 
     int goal_state_count;
 
-    std::ofstream new_data_form;
-    std::ofstream new_labels_form;
 
     std::ofstream expanded_heatmap_points;
     std::ofstream all_heatmap_points;
