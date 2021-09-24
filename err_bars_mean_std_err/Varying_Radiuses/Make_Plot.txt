@@ -1,0 +1,1 @@
+python3 ErrorBar.py Depth_1.txt Radius_0.05.txt Radius_0.075.txt Radius_0.1.txt Radius_0.125.txt Radius_0.15.txt
