@@ -37,13 +37,13 @@ The directory by the name of ```err_bars_mean_std_err``` is for reproducing resu
 In order to get the results for a certain section, the following steps must be done:<br />
 - Build the program as shown above<br />
 - Go into the section's subdirectory in ```err_bars_mean_std_err```<br />
-- Run: chmod 777 Copy_Scripts.txt Make_Plot.txt<br />
-- Run: ./Copy_Scripts, or copy each script to the specified directory in the "Copy_Scripts.txt" file<br />
+- Run: `chmod 777 Copy_Scripts.txt Make_Plot.txt`<br />
+- Run: `./Copy_Scripts`, or copy each script to the specified directory in the "Copy_Scripts.txt" file<br />
 - Go into the specified directory of each copied script and run it.<br />
 - Go back into the section's subdirectory in ```err_bars_mean_std_err```<br />
 - There you will find all the raw data.<br />
-- To reproduce the plots, Run: ./Make_Plot.txt<br />
-- To view the Average +- Standard Error statistics of a certain run, go back to the ```err_bars_mean_std_err``` directory and Run: python3 Average_STD ${path_to_raw_data_run}<br />
+- To reproduce the plots, Run: `./Make_Plot.txt`<br />
+- To view the Average +- Standard Error statistics of a certain run, go back to the ```err_bars_mean_std_err``` directory and Run: `python3 Average_STD ${path_to_raw_data_run}`<br />
 
 ### IMPORTANT NOTE FOR RESULTS REPRODUCTION:
 prior to running AStar scripts (prior to running scripts with a suffix "AStar.txt"), you must go to ```src/environment_navxythetaC.cpp```, and change the value of PENALTY (which is defined at line 39) to 0 and recompile. DO NOT FORGET TO SET IT BACK TO 1 AND RECOMPILING AFTER THE SCRIPT FINISHES.
